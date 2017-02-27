@@ -1,5 +1,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
+var Student = require('../db'); 
+
 var router = express.Router();
 
 /* GET users listing. */
@@ -49,6 +51,29 @@ var students = [
  {"id": 3, "imie":"Tadeusz", "nazwisko":"Mostowski"},
  {"id": 4, "imie":"Inga", "nazwisko":"Baran"}
  ];
+
+
+
+
+
+
+
+router.get('/st/', function(req, res, next) {
+	Student.find(function (err, students) {
+	if (err) return next(err);
+		res.json(students);
+	});
+});
+
+router.post('/st/', function(req, res, next) {
+	Student.create(req.body, function (err, stud) {
+	if (err) return next(err);
+		res.json(stud);
+	});
+});
+
+
+
 
 
 module.exports = router;
